@@ -51,6 +51,22 @@ Analyze your full journey history and current view, apply the Core Principles, a
 Your response MUST be a valid JSON object wrapped in ```json ... ```.
 - For exploration: `{{"reasoning": "...", "action_details": {{"action": "ACTION_NAME"}} }}`
 - For the final guess: `{{"reasoning": "...", "action_details": {{"action": "GUESS", "lat": <float>, "lon": <float>}} }}`
+
+**Example (valid exploration)**  
+```json
+{{
+  "reasoning": "…",
+  "action_details": {{"action": "PAN_LEFT"}}
+}}
+```
+
+**Example (final guess)**  
+```json
+{{
+  "reasoning": "…",
+  "action_details": {{"action": "GUESS", "lat": -33.8651, "lon": 151.2099}}
+}}
+```
 """
 
 BENCHMARK_PROMPT = """
