@@ -306,7 +306,9 @@ if start_button:
 
                             st.write("**AI Reasoning:**")
                             st.info(step_info.get("reasoning", "N/A"))
-
+                            if step_info.get("debug_message") != "N/A":
+                                st.write("**AI Debug Message:**")
+                                st.code(step_info.get("debug_message"), language="json")
                             st.write("**AI Action:**")
                             if action == "GUESS":
                                 lat = step_info.get("action_details", {}).get("lat")

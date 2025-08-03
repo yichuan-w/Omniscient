@@ -250,6 +250,7 @@ class GeoBot:
             decision = {
                 "reasoning": "Recovery due to parsing failure or model error.",
                 "action_details": {"action": "PAN_RIGHT"},
+                "debug_message": f"{response.content.strip()}",
             }
 
         return decision
@@ -347,6 +348,7 @@ class GeoBot:
                 "reasoning": decision.get("reasoning", "N/A"),
                 "action_details": decision.get("action_details", {"action": "N/A"}),
                 "history": history.copy(),  # History up to current step (excluding current)
+                "debug_message": decision.get("debug_message", "N/A"),
             }
 
             action_details = decision.get("action_details", {})
