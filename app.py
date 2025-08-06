@@ -291,11 +291,11 @@ if start_button:
         # plot
         st.subheader("Accuracy vs Steps")
 
-        # summary_by_step 结构: {model: [acc_step1, acc_step2, ...]}
+        # summary_by_step {model: [acc_step1, acc_step2, ...]}
         df_wide = pd.DataFrame(summary_by_step)
         df_long = (
             df_wide
-            .reset_index(names="Step")      # 列 index → Step 列
+            .reset_index(names="Step")      
             .melt(id_vars="Step", var_name="Model", value_name="Accuracy")
         )
 
