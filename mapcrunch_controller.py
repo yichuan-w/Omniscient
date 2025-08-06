@@ -214,6 +214,16 @@ class MapCrunchController:
             base_actions.extend(["MOVE_FORWARD", "MOVE_BACKWARD"])
         return base_actions
 
+    def get_test_available_actions(self) -> List[str]:
+        """
+        Checks for movement links via JavaScript.
+        """
+        base_actions = ["PAN_LEFT", "PAN_RIGHT"]
+        links = self.driver.execute_script("return window.panorama.getLinks();")
+        if links and len(links) > 0:
+            base_actions.extend(["MOVE_FORWARD", "MOVE_BACKWARD"])
+        return base_actions
+    
     def get_current_address(self) -> Optional[str]:
         try:
             address_element = self.wait.until(
