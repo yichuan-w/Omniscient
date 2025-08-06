@@ -147,11 +147,71 @@ def collect_mode(dataset_name: str, samples: int, headless: bool):
     print(f"Data collection complete for dataset '{dataset_name}'.")
 
 
+def test_mode(
+    models: list,
+    samples: int,
+    runs: int,
+    steps: int,
+    dataset_name: str = "default",
+    temperature: float = 0.0,
+    headless: bool = True,
+):
+    """
+    Multi-model, multi-run benchmark that records accuracy-vs-step curves.
+    Identical统计方式与 app.py 中 Test Mode 保持一致。
+    """
+    from collections import defaultdict
+    from tqdm import tqdm
+
+    data_paths = get_data_paths(dataset_name)
+    with open(data_paths["golden_labels"], "r", encoding="utf-8") as f:
+        golden_labels = json.load(f)["samples"]
+
+    golden_labels = golden_labels[:samples]
+    benchmark_helper = MapGuesserBenchmark(dataset_name=dataset_name, headless=headless)
+
+    summary_by_step: dict[str, list[float]] = {}          # {model: [acc_step1, …]}
+    for model_name in models:
+        print(f"\n===== {model_name} =====")
+        cfg = MODELS_CONFIG[model_name]
+        model_cls = get_model_class(cfg["class"])
+        successes = [0] * steps
+
+        for run in range(runs):
+            with GeoBot(
+                model=model_cls,
+                model_name=cfg["model_name"],
+                headless=headless,
+                temperature=temperature,
+            ) as bot:
+                for sample in tqdm(golden_labels, desc=f"{model_name} run {run+1}/{runs}"):
+                    if not bot.controller.load_location_from_data(sample):
+                        continue
+                    preds = bot.test_run_agent_loop(max_steps=steps)
+                    true = (sample["lat"], sample["lng"])
+                    for idx, pred in enumerate(preds):
+                        if isinstance(pred, dict) and "lat" in pred:
+                            dist = benchmark_helper.calculate_distance(
+                                {"lat": true[0], "lng": true[1]}, (pred["lat"], pred["lon"])
+                            )
+                            if dist is not None and dist <= SUCCESS_THRESHOLD_KM:
+                                successes[idx] += 1
+
+        total = samples * runs
+        summary_by_step[model_name] = [s / total for s in successes]
+
+    # 打印结果
+    for m, acc in summary_by_step.items():
+        print(f"\n{m}")
+        for i, v in enumerate(acc, 1):
+            print(f"  step {i:>2}: {v*100:5.1f}%")
+
+
 def main():
     parser = argparse.ArgumentParser(description="MapCrunch AI Agent & Benchmark")
     parser.add_argument(
         "--mode",
-        choices=["agent", "benchmark", "collect"],
+        choices=["agent", "benchmark", "collect", "test"],
         default="agent",
         help="Operation mode.",
     )
@@ -190,6 +250,7 @@ def main():
         default=0.0,
         help="Temperature parameter for LLM sampling (0.0 = deterministic, higher = more random). Default: 0.0",
     )
+    parser.add_argument("--runs", type=int, default=3, help="[Test] Runs per model")
 
     args = parser.parse_args()
 
@@ -215,6 +276,16 @@ def main():
             headless=args.headless,
             dataset_name=args.dataset,
             temperature=args.temperature,
+        )
+    elif args.mode == "test":
+        test_mode(
+            models=args.models or [args.model],
+            samples=args.samples,
+            runs=args.runs,
+            steps=args.steps,
+            dataset_name=args.dataset,
+            temperature=args.temperature,
+            headless=args.headless,
         )
 
 

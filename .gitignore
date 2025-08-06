@@ -15,3 +15,6 @@ datasets/*/thumbnails/
 # Legacy data directory (can be removed if no longer used)
 data/
 !data/golden_labels.json
+
+config.py
+main.py
