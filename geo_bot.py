@@ -359,7 +359,7 @@ class GeoBot:
                 "reasoning": "Recovery due to parsing failure or model error.",
                 "action_details": {"action": "PAN_RIGHT"},
                 "current_prediction": "N/A",
-                "debug_message": f"{response.content.strip()}",
+                "debug_message": f"{response.content.strip() if response is not None else 'N/A'}",
             }
 
         return decision
@@ -398,7 +398,7 @@ class GeoBot:
                 image=Image.open(BytesIO(screenshot_bytes))
             )
             available_actions = self.controller.get_test_available_actions()
-            print(f"Available actions: {available_actions}")
+            # print(f"Available actions: {available_actions}")
 
            
             # Normal step execution
@@ -424,15 +424,30 @@ class GeoBot:
 
             action_details = decision.get("action_details", {})
             action = action_details.get("action")
-            print(f"AI Reasoning: {decision.get('reasoning', 'N/A')}")
-            print(f"AI Current Prediction: {decision.get('current_prediction', 'N/A')}")
-            print(f"AI Action: {action}")
+            # print(f"AI Reasoning: {decision.get('reasoning', 'N/A')}")
+            # print(f"AI Current Prediction: {decision.get('current_prediction', 'N/A')}")
+            # print(f"AI Action: {action}")
 
 
             # Add step to history AFTER callback (so next iteration has this step in history)
             self.add_step_to_history(history, current_screenshot_b64, decision)
 
-            predictions.append(decision.get("current_prediction", "N/A"))
+            current_prediction = decision.get("current_prediction")
+            if current_prediction and isinstance(current_prediction, dict):
+                current_prediction["reasoning"] = decision.get("reasoning", "N/A")
+                predictions.append(current_prediction)
+            else:
+                # Fallback: create a basic prediction structure
+                print(f"Invalid current prediction: {current_prediction}")
+                fallback_prediction = {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "confidence": 0.0,
+                    "location_description": "N/A",
+                    "reasoning": decision.get("reasoning", "N/A")
+                }
+                predictions.append(fallback_prediction)
+            
             self.execute_action(action)
 
         return predictions
