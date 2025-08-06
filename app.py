@@ -290,8 +290,28 @@ if start_button:
             progress_bar.progress((mi+1)/len(selected_models))
         # plot
         st.subheader("Accuracy vs Steps")
-        df_chart = pd.DataFrame(summary_by_step)
-        st.line_chart(df_chart)
+
+        # summary_by_step 结构: {model: [acc_step1, acc_step2, ...]}
+        df_wide = pd.DataFrame(summary_by_step)
+        df_long = (
+            df_wide
+            .reset_index(names="Step")      # 列 index → Step 列
+            .melt(id_vars="Step", var_name="Model", value_name="Accuracy")
+        )
+
+        chart = (
+            alt.Chart(df_long)
+            .mark_line(point=True)
+            .encode(
+                x=alt.X("Step:O", title="Step #"),
+                y=alt.Y("Accuracy:Q", title="Accuracy", scale=alt.Scale(domain=[0, 1])),
+                color=alt.Color("Model:N", title="Model"),
+                tooltip=["Model:N", "Step:O", alt.Tooltip("Accuracy:Q", format=".2%")],
+            )
+            .properties(width=700, height=400)
+        )
+
+        st.altair_chart(chart, use_container_width=True)
         st.stop()
     
     else:
