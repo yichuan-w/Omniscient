@@ -398,7 +398,7 @@ class GeoBot:
                 image=Image.open(BytesIO(screenshot_bytes))
             )
             available_actions = self.controller.get_test_available_actions()
-            print(f"Available actions: {available_actions}")
+            # print(f"Available actions: {available_actions}")
 
            
             # Normal step execution
@@ -424,9 +424,9 @@ class GeoBot:
 
             action_details = decision.get("action_details", {})
             action = action_details.get("action")
-            print(f"AI Reasoning: {decision.get('reasoning', 'N/A')}")
-            print(f"AI Current Prediction: {decision.get('current_prediction', 'N/A')}")
-            print(f"AI Action: {action}")
+            # print(f"AI Reasoning: {decision.get('reasoning', 'N/A')}")
+            # print(f"AI Current Prediction: {decision.get('current_prediction', 'N/A')}")
+            # print(f"AI Action: {action}")
 
 
             # Add step to history AFTER callback (so next iteration has this step in history)

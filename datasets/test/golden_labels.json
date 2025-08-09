@@ -1,0 +1,759 @@
+{
+  "metadata": {
+    "dataset_name": "test",
+    "collection_date": "2025-08-07T12:43:38.026706",
+    "collection_options": {}
+  },
+  "samples": [
+    {
+      "id": "d6250b7f-4da5-42c1-8c8d-0423e67e77be",
+      "timestamp": "2025-08-07T12:40:37.875459",
+      "lat": 47.66613320444537,
+      "lng": 26.011012145674016,
+      "address": "3 DJ178A, Suceava County",
+      "pano_id": "PdysAkpL3AJpCWhOBC5GwQ",
+      "pov": {
+        "heading": -238.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "47.666133_26.011012_-238.15_-5.00_0",
+      "thumbnail_path": "d6250b7f-4da5-42c1-8c8d-0423e67e77be.jpg"
+    },
+    {
+      "id": "3bb51463-0a02-4ce4-9e61-6e0f28491897",
+      "timestamp": "2025-08-07T12:40:41.467083",
+      "lat": -5.239479425072147,
+      "lng": 71.82213288625383,
+      "address": "British Indian Ocean Territory",
+      "pano_id": "NYwG1Ym4ZqDLb5APiRn2Eg",
+      "pov": {
+        "heading": -48.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "-5.239479_71.822133_-48.15_-5.00_0",
+      "thumbnail_path": "3bb51463-0a02-4ce4-9e61-6e0f28491897.jpg"
+    },
+    {
+      "id": "4acf7d7e-8309-4e57-88b2-1ea1019c1719",
+      "timestamp": "2025-08-07T12:40:45.049516",
+      "lat": 44.577090525370025,
+      "lng": 132.8105749539221,
+      "address": "Spassk-Dalny, Primorsky Krai",
+      "pano_id": "l1mVXN5S-foFa6foYGvMaQ",
+      "pov": {
+        "heading": 100.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "44.577091_132.810575_100.85_-5.00_0",
+      "thumbnail_path": "4acf7d7e-8309-4e57-88b2-1ea1019c1719.jpg"
+    },
+    {
+      "id": "c4d4352f-6285-42c1-bbae-231ca95da48a",
+      "timestamp": "2025-08-07T12:40:48.577565",
+      "lat": -14.173449381539905,
+      "lng": -169.67773654813135,
+      "address": "Rte 20, Ofu, Manu'a District",
+      "pano_id": "GTAdq2n3eUJ33lWb-gJ5BA",
+      "pov": {
+        "heading": 321.85,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "-14.173449_-169.677737_321.85_-5.00_0",
+      "thumbnail_path": "c4d4352f-6285-42c1-bbae-231ca95da48a.jpg"
+    },
+    {
+      "id": "b4b889cf-008f-4b71-b901-bca7b3de3951",
+      "timestamp": "2025-08-07T12:40:52.470733",
+      "lat": 44.83634227352461,
+      "lng": -91.46694086852327,
+      "address": "3048 Winsor Dr, Eau Claire, Wisconsin",
+      "pano_id": "teO7CeeojzPT4y6Dz5V4qg",
+      "pov": {
+        "heading": -244.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "44.836342_-91.466941_-244.15_-5.00_0",
+      "thumbnail_path": "b4b889cf-008f-4b71-b901-bca7b3de3951.jpg"
+    },
+    {
+      "id": "7a606d59-46f3-4522-b2be-2e5a5576e155",
+      "timestamp": "2025-08-07T12:40:56.350929",
+      "lat": 32.28575621196474,
+      "lng": -64.77437787828177,
+      "address": "Bermuda Tourism",
+      "pano_id": "CAoSFkNJSE0wb2dLRUlDQWdJQ3VnTGZLUmc.",
+      "pov": {
+        "heading": -26.149999999999977,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "32.285756_-64.774378_-26.15_-5.00_0",
+      "thumbnail_path": "7a606d59-46f3-4522-b2be-2e5a5576e155.jpg"
+    },
+    {
+      "id": "262d348a-a60a-42d8-bd4f-68aafe98d1fb",
+      "timestamp": "2025-08-07T12:40:59.894064",
+      "lat": 11.275626069517537,
+      "lng": 104.8745358584606,
+      "address": "Tak\u00e9o Province",
+      "pano_id": "5Y1dyapSF2NxjeB4-ucZkA",
+      "pov": {
+        "heading": 134.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "11.275626_104.874536_134.85_-5.00_0",
+      "thumbnail_path": "262d348a-a60a-42d8-bd4f-68aafe98d1fb.jpg"
+    },
+    {
+      "id": "09ce31a1-a719-4ed9-a344-7987214902c1",
+      "timestamp": "2025-08-07T12:41:03.536576",
+      "lat": -17.362187562805154,
+      "lng": -63.14684639831983,
+      "address": "Camino Montero, Santa Cruz Department",
+      "pano_id": "51rbDOTj6SCtSi9vyN0-Pg",
+      "pov": {
+        "heading": -336.15,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "-17.362188_-63.146846_-336.15_-5.00_0",
+      "thumbnail_path": "09ce31a1-a719-4ed9-a344-7987214902c1.jpg"
+    },
+    {
+      "id": "4d7925b6-c1b2-4968-b5cf-61a67b2c68fb",
+      "timestamp": "2025-08-07T12:41:06.979405",
+      "lat": -21.458641127651422,
+      "lng": -47.59839773953906,
+      "address": "12160 Rodovia Conde Francisco Matarazzo J\u00fanior, State of S\u00e3o Paulo",
+      "pano_id": "PTMrd1Xosg9QO25i58gjAg",
+      "pov": {
+        "heading": -204.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "-21.458641_-47.598398_-204.15_-5.00_0",
+      "thumbnail_path": "4d7925b6-c1b2-4968-b5cf-61a67b2c68fb.jpg"
+    },
+    {
+      "id": "1929ea7c-af27-42d0-9931-66d5ad451d21",
+      "timestamp": "2025-08-07T12:41:10.587109",
+      "lat": -54.00998792650971,
+      "lng": -67.6803410996465,
+      "address": "17 RP F, Tierra del Fuego Province",
+      "pano_id": "HsUaaUVcACNjAhgLP2_YOg",
+      "pov": {
+        "heading": -73.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "-54.009988_-67.680341_-73.15_-5.00_0",
+      "thumbnail_path": "1929ea7c-af27-42d0-9931-66d5ad451d21.jpg"
+    },
+    {
+      "id": "7bc2a39e-ac61-4704-a950-203117b4aca2",
+      "timestamp": "2025-08-07T12:41:14.089628",
+      "lat": 42.44808280064812,
+      "lng": 1.4936480624654318,
+      "address": "Cam\u00ed els Hortells, Sant Juli\u00e0 de L\u00f2ria",
+      "pano_id": "kqVCVi1mPVjLpeHMyN_BPQ",
+      "pov": {
+        "heading": 111.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "42.448083_1.493648_111.85_-5.00_0",
+      "thumbnail_path": "7bc2a39e-ac61-4704-a950-203117b4aca2.jpg"
+    },
+    {
+      "id": "a77120f7-f65b-4ea4-8419-4c2f599c2ed8",
+      "timestamp": "2025-08-07T12:41:17.644882",
+      "lat": 23.57625889505424,
+      "lng": 120.55489844246863,
+      "address": "Chiayi County",
+      "pano_id": "25efsk04WLxb8UuEELh0fQ",
+      "pov": {
+        "heading": 258.85,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "23.576259_120.554898_258.85_-5.00_0",
+      "thumbnail_path": "a77120f7-f65b-4ea4-8419-4c2f599c2ed8.jpg"
+    },
+    {
+      "id": "bf12b96e-5ee7-4815-bc1e-2ef6ccaf3b5c",
+      "timestamp": "2025-08-07T12:41:21.174601",
+      "lat": 49.76842154708744,
+      "lng": 6.236529746429928,
+      "address": "12 Regioun, Heffingen, Mersch",
+      "pano_id": "VLotZqwpyqKwg2D1uRhZLA",
+      "pov": {
+        "heading": -243.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "49.768422_6.236530_-243.15_-5.00_0",
+      "thumbnail_path": "bf12b96e-5ee7-4815-bc1e-2ef6ccaf3b5c.jpg"
+    },
+    {
+      "id": "6a5589de-e1fb-46c4-96c3-85cfb161444e",
+      "timestamp": "2025-08-07T12:41:24.747595",
+      "lat": 49.78642391720587,
+      "lng": 6.199481729741201,
+      "address": "CR118, Larochette, Mersch",
+      "pano_id": "JqZpePEOedyFAYtwUC786g",
+      "pov": {
+        "heading": -104.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "49.786424_6.199482_-104.15_-5.00_0",
+      "thumbnail_path": "6a5589de-e1fb-46c4-96c3-85cfb161444e.jpg"
+    },
+    {
+      "id": "9c9465d9-5bfa-48c0-8fa4-f4a1c7dd0c25",
+      "timestamp": "2025-08-07T12:41:28.269300",
+      "lat": 34.0994193037527,
+      "lng": 131.95163614377708,
+      "address": "\u770c\u9053140\u53f7, Shunan, Yamaguchi",
+      "pano_id": "6HXD7J5jRsnBD5_KjCTSPw",
+      "pov": {
+        "heading": 129.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "34.099419_131.951636_129.85_-5.00_0",
+      "thumbnail_path": "9c9465d9-5bfa-48c0-8fa4-f4a1c7dd0c25.jpg"
+    },
+    {
+      "id": "3f0e8c12-109e-4db7-a228-52a156ca880d",
+      "timestamp": "2025-08-07T12:41:32.781435",
+      "lat": 14.7694212956585,
+      "lng": -16.695508234038147,
+      "address": "Khombole, Thi\u00e8s Region",
+      "pano_id": "BjJ0cU8LxMFDFJD3vj5YYQ",
+      "pov": {
+        "heading": 241.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "14.769421_-16.695508_241.85_-5.00_0",
+      "thumbnail_path": "3f0e8c12-109e-4db7-a228-52a156ca880d.jpg"
+    },
+    {
+      "id": "a76f6ed2-5bb0-4750-bfd0-5a01fa052772",
+      "timestamp": "2025-08-07T12:41:36.390462",
+      "lat": 49.075733818467846,
+      "lng": 19.306522463680235,
+      "address": "32 J\u00e1na Jan\u010deka, Ru\u017eomberok, \u017dilina Region",
+      "pano_id": "4EOqYYxwF--FflZHgPGu2Q",
+      "pov": {
+        "heading": -233.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "49.075734_19.306522_-233.15_-5.00_0",
+      "thumbnail_path": "a76f6ed2-5bb0-4750-bfd0-5a01fa052772.jpg"
+    },
+    {
+      "id": "a6f20438-972f-48b0-8dc6-e95baec1c8c2",
+      "timestamp": "2025-08-07T12:41:39.931459",
+      "lat": 32.28733167935287,
+      "lng": -64.77638248243588,
+      "address": "23 Lovers Ln, Paget Parish",
+      "pano_id": "ZHTVVVlJPR35oUPiShnqHw",
+      "pov": {
+        "heading": -113.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "32.287332_-64.776382_-113.15_-5.00_0",
+      "thumbnail_path": "a6f20438-972f-48b0-8dc6-e95baec1c8c2.jpg"
+    },
+    {
+      "id": "4ee65f3b-aeaa-49d1-abda-28e270cca142",
+      "timestamp": "2025-08-07T12:41:43.438726",
+      "lat": 41.49319498028777,
+      "lng": 21.92920765772765,
+      "address": "Municipality of Rosoman",
+      "pano_id": "NcxnpDckFi3vt4-ntoF44A",
+      "pov": {
+        "heading": 99.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "41.493195_21.929208_99.85_-5.00_0",
+      "thumbnail_path": "4ee65f3b-aeaa-49d1-abda-28e270cca142.jpg"
+    },
+    {
+      "id": "3933f509-49f4-413f-b32d-95398910b3b6",
+      "timestamp": "2025-08-07T12:41:47.006438",
+      "lat": 31.875513355699223,
+      "lng": 35.492798274434385,
+      "address": "Green jericho",
+      "pano_id": "i9EnnjI_H0LQZ80DD8caeQ",
+      "pov": {
+        "heading": 328.85,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "31.875513_35.492798_328.85_-5.00_0",
+      "thumbnail_path": "3933f509-49f4-413f-b32d-95398910b3b6.jpg"
+    },
+    {
+      "id": "e32c0681-97bc-440e-9d8e-c1cb9511d47d",
+      "timestamp": "2025-08-07T12:41:50.873515",
+      "lat": 55.115320287969766,
+      "lng": 26.163976401890817,
+      "address": "128 Str\u016bnai\u010dio g., \u0160ven\u010dionys, Vilnius County",
+      "pano_id": "kN6UgL1Chn6ffNKK7wQmxA",
+      "pov": {
+        "heading": -192.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "55.115320_26.163976_-192.15_-5.00_0",
+      "thumbnail_path": "e32c0681-97bc-440e-9d8e-c1cb9511d47d.jpg"
+    },
+    {
+      "id": "15861215-f932-426b-a6fa-08ae0cd5ae54",
+      "timestamp": "2025-08-07T12:41:54.439626",
+      "lat": 55.115320287969766,
+      "lng": 26.163976401890817,
+      "address": "128 Str\u016bnai\u010dio g., \u0160ven\u010dionys, Vilnius County",
+      "pano_id": "kN6UgL1Chn6ffNKK7wQmxA",
+      "pov": {
+        "heading": -192.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "55.115320_26.163976_-192.15_-5.00_0",
+      "thumbnail_path": "15861215-f932-426b-a6fa-08ae0cd5ae54.jpg"
+    },
+    {
+      "id": "9a6c5a97-8501-489d-bade-f07bbcbebeea",
+      "timestamp": "2025-08-07T12:42:01.229172",
+      "lat": 40.13741279140719,
+      "lng": 19.645404417111592,
+      "address": "Dh\u00ebrmiu Beach",
+      "pano_id": "CAoSFkNJSE0wb2dLRUlDQWdJRHFqYW42YWc.",
+      "pov": {
+        "heading": 137.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "40.137413_19.645404_137.85_-5.00_0",
+      "thumbnail_path": "9a6c5a97-8501-489d-bade-f07bbcbebeea.jpg"
+    },
+    {
+      "id": "cbbab275-9be4-4d3a-b077-45ae1f8d14ff",
+      "timestamp": "2025-08-07T12:42:04.457716",
+      "lat": 29.18167200058433,
+      "lng": -95.43500220590631,
+      "address": "Angleton, Texas",
+      "pano_id": "IayHlQ-Wr58p-_kVKSK1ug",
+      "pov": {
+        "heading": 270.85,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "29.181672_-95.435002_270.85_-5.00_0",
+      "thumbnail_path": "cbbab275-9be4-4d3a-b077-45ae1f8d14ff.jpg"
+    },
+    {
+      "id": "011c76d0-d1cf-40f0-b243-3593448bce84",
+      "timestamp": "2025-08-07T12:42:07.779631",
+      "lat": 12.226344673460268,
+      "lng": 122.02353179975576,
+      "address": "Junction Guinhayaan - Malbog Port Rd, Looc, MIMAROPA",
+      "pano_id": "tAnV4HzcEaJ5IAm2Jgegiw",
+      "pov": {
+        "heading": -253.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "12.226345_122.023532_-253.15_-5.00_0",
+      "thumbnail_path": "011c76d0-d1cf-40f0-b243-3593448bce84.jpg"
+    },
+    {
+      "id": "a16553c1-8b4a-44f0-9d6d-9c23b1b93c86",
+      "timestamp": "2025-08-07T12:42:12.220880",
+      "lat": 34.062066594180294,
+      "lng": 133.86624813436472,
+      "address": "Tokushima Prefectural Rd No. 4, Higashimiyoshi, Tokushima",
+      "pano_id": "5Tp9jW_NWLnaKB_3NTeQSw",
+      "pov": {
+        "heading": -106.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "34.062067_133.866248_-106.15_-5.00_0",
+      "thumbnail_path": "a16553c1-8b4a-44f0-9d6d-9c23b1b93c86.jpg"
+    },
+    {
+      "id": "0246f9d3-be8d-40f0-805e-d0446ef2d183",
+      "timestamp": "2025-08-07T12:42:15.744386",
+      "lat": -41.21734957722994,
+      "lng": 172.11284555729617,
+      "address": "302 Rte 67, Karamea, West Coast Region",
+      "pano_id": "dcA7I3Arr0VPwKwgMxX_mQ",
+      "pov": {
+        "heading": 23.850000000000023,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "-41.217350_172.112846_23.85_-5.00_0",
+      "thumbnail_path": "0246f9d3-be8d-40f0-805e-d0446ef2d183.jpg"
+    },
+    {
+      "id": "54375156-8b78-4e60-afc9-f1172deba69d",
+      "timestamp": "2025-08-07T12:42:19.157383",
+      "lat": 46.10532360891025,
+      "lng": 15.119329939077309,
+      "address": "Podkraj, Podkraj, Municipality of Hrastnik",
+      "pano_id": "4bdhb8F41Au_r8UJIG8nCQ",
+      "pov": {
+        "heading": 204.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "46.105324_15.119330_204.85_-5.00_0",
+      "thumbnail_path": "54375156-8b78-4e60-afc9-f1172deba69d.jpg"
+    },
+    {
+      "id": "4fa45765-4ce7-4adc-a4fb-7f54149d6f27",
+      "timestamp": "2025-08-07T12:42:22.677283",
+      "lat": 44.370875416206346,
+      "lng": 5.1514140758707585,
+      "address": "1450 Les Fonts, Nyons, Auvergne-Rh\u00f4ne-Alpes",
+      "pano_id": "30HH_X24i7QOn6dILzYoKw",
+      "pov": {
+        "heading": -320.15,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "44.370875_5.151414_-320.15_-5.00_0",
+      "thumbnail_path": "4fa45765-4ce7-4adc-a4fb-7f54149d6f27.jpg"
+    },
+    {
+      "id": "08ef293d-2894-489f-b77f-377115c75921",
+      "timestamp": "2025-08-07T12:42:26.245168",
+      "lat": -19.541637267698466,
+      "lng": -63.55863586071773,
+      "address": "9, Santa Cruz Department",
+      "pano_id": "FmZr6VYcfqf_qwztM0cJ0g",
+      "pov": {
+        "heading": -125.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "-19.541637_-63.558636_-125.15_-5.00_0",
+      "thumbnail_path": "08ef293d-2894-489f-b77f-377115c75921.jpg"
+    },
+    {
+      "id": "8ff247f4-efdf-47e8-8aab-7752f7a7a033",
+      "timestamp": "2025-08-07T12:42:30.212571",
+      "lat": 25.60987433301616,
+      "lng": 55.754304628080014,
+      "address": "Al Alyaah St, Al Raafah, Emirate of Umm Al Quwain",
+      "pano_id": "3lt-n3rOsbk3GkZ3CiuMKQ",
+      "pov": {
+        "heading": 63.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "25.609874_55.754305_63.85_-5.00_0",
+      "thumbnail_path": "8ff247f4-efdf-47e8-8aab-7752f7a7a033.jpg"
+    },
+    {
+      "id": "41aa250b-f476-4c47-a8b3-1b170f892039",
+      "timestamp": "2025-08-07T12:42:33.795863",
+      "lat": 32.28525162497046,
+      "lng": -64.78725425926685,
+      "address": "Hodson's Ferry",
+      "pano_id": "CAoSF0NJSE0wb2dLRUlDQWdJQ0UzYkhPalFF",
+      "pov": {
+        "heading": 314.85,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "32.285252_-64.787254_314.85_-5.00_0",
+      "thumbnail_path": "41aa250b-f476-4c47-a8b3-1b170f892039.jpg"
+    },
+    {
+      "id": "1fc918f8-1b83-4aeb-a785-22a3cd15a407",
+      "timestamp": "2025-08-07T12:42:37.657812",
+      "lat": 45.888594934068315,
+      "lng": 16.65941553063258,
+      "address": "Bol\u010d, Zagreb County",
+      "pano_id": "EwgAJqZjebsU51bDLswlGg",
+      "pov": {
+        "heading": -201.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "45.888595_16.659416_-201.15_-5.00_0",
+      "thumbnail_path": "1fc918f8-1b83-4aeb-a785-22a3cd15a407.jpg"
+    },
+    {
+      "id": "6186abe6-6343-41bd-b7c6-ef65e5fb5a83",
+      "timestamp": "2025-08-07T12:42:41.528253",
+      "lat": 68.72859088427079,
+      "lng": 16.900531665561935,
+      "address": "Fv848, Troms",
+      "pano_id": "HUtqcc4YFuJA6EGOvLaOSg",
+      "pov": {
+        "heading": -33.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "68.728591_16.900532_-33.15_-5.00_0",
+      "thumbnail_path": "6186abe6-6343-41bd-b7c6-ef65e5fb5a83.jpg"
+    },
+    {
+      "id": "f9d01601-da06-4286-b83f-aad48292ef56",
+      "timestamp": "2025-08-07T12:42:45.046606",
+      "lat": 56.718393213855904,
+      "lng": 25.74434588961816,
+      "address": "Aizkraukle Municipality",
+      "pano_id": "lFBbYokbq5Azj-WuXKkAww",
+      "pov": {
+        "heading": 112.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "56.718393_25.744346_112.85_-5.00_0",
+      "thumbnail_path": "f9d01601-da06-4286-b83f-aad48292ef56.jpg"
+    },
+    {
+      "id": "29521be4-0c47-40b4-9fe5-14dd37686eed",
+      "timestamp": "2025-08-07T12:42:48.525979",
+      "lat": 38.22079108487478,
+      "lng": -1.0621034114314583,
+      "address": "MU-412, Abanilla, Region of Murcia",
+      "pano_id": "YoaYr1t8aZ65kAKY_xoa4Q",
+      "pov": {
+        "heading": 338.85,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "38.220791_-1.062103_338.85_-5.00_0",
+      "thumbnail_path": "29521be4-0c47-40b4-9fe5-14dd37686eed.jpg"
+    },
+    {
+      "id": "cf0e39c0-67b7-4d72-a51b-fa006fa8e036",
+      "timestamp": "2025-08-07T12:42:52.036523",
+      "lat": 14.586380510782684,
+      "lng": -91.12495671396474,
+      "address": "RN-11, Patulul, Solol\u00e1 Department",
+      "pano_id": "e83Ymkc4WsPjYZSXQSkhlQ",
+      "pov": {
+        "heading": -249.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "14.586381_-91.124957_-249.15_-5.00_0",
+      "thumbnail_path": "cf0e39c0-67b7-4d72-a51b-fa006fa8e036.jpg"
+    },
+    {
+      "id": "0049770c-0e79-4f6e-a230-85815c5afca4",
+      "timestamp": "2025-08-07T12:42:55.545371",
+      "lat": 41.24761837711202,
+      "lng": 19.900912328789897,
+      "address": "SH3, B\u00ebrzhit\u00eb, Tirana County",
+      "pano_id": "H4OtJUEIjqNM4h3b3zJiog",
+      "pov": {
+        "heading": -38.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "41.247618_19.900912_-38.15_-5.00_0",
+      "thumbnail_path": "0049770c-0e79-4f6e-a230-85815c5afca4.jpg"
+    },
+    {
+      "id": "108d3530-8cd1-4554-9e27-f4161c25b64f",
+      "timestamp": "2025-08-07T12:42:59.039576",
+      "lat": 23.106680960105503,
+      "lng": 120.31480234033475,
+      "address": "Tainan City",
+      "pano_id": "wPKvYXSO2t3Cjb9d_92vbQ",
+      "pov": {
+        "heading": 177.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "23.106681_120.314802_177.85_-5.00_0",
+      "thumbnail_path": "108d3530-8cd1-4554-9e27-f4161c25b64f.jpg"
+    },
+    {
+      "id": "684589c2-db98-4fa0-a909-26677d622781",
+      "timestamp": "2025-08-07T12:43:02.607203",
+      "lat": 24.280060413908377,
+      "lng": 91.40645644538027,
+      "address": "Sylhet Division",
+      "pano_id": "vnxugWDu7BvOIQKU2pGreQ",
+      "pov": {
+        "heading": 289.85,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "24.280060_91.406456_289.85_-5.00_0",
+      "thumbnail_path": "684589c2-db98-4fa0-a909-26677d622781.jpg"
+    },
+    {
+      "id": "9e52e1ef-b7c8-4290-a50c-dea42684329c",
+      "timestamp": "2025-08-07T12:43:06.097012",
+      "lat": 23.075670254787028,
+      "lng": 120.16583641147342,
+      "address": "Tainan City",
+      "pano_id": "KT8dvKAlDqRIWqXVig9tRA",
+      "pov": {
+        "heading": -217.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "23.075670_120.165836_-217.15_-5.00_0",
+      "thumbnail_path": "9e52e1ef-b7c8-4290-a50c-dea42684329c.jpg"
+    },
+    {
+      "id": "54ccc34f-ae30-449b-83cf-3f6485186e38",
+      "timestamp": "2025-08-07T12:43:09.571839",
+      "lat": 16.069303835253045,
+      "lng": -13.917845261546633,
+      "address": "N2, Saint-Louis Region",
+      "pano_id": "AOhMIvzxsCcRhsHw2BVUzA",
+      "pov": {
+        "heading": -106.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "16.069304_-13.917845_-106.15_-5.00_0",
+      "thumbnail_path": "54ccc34f-ae30-449b-83cf-3f6485186e38.jpg"
+    },
+    {
+      "id": "9903bb23-294e-44a2-9ecf-180808b82d67",
+      "timestamp": "2025-08-07T12:43:12.991252",
+      "lat": -32.83743900844668,
+      "lng": -70.95213519080639,
+      "address": "218 Capit\u00e1n Avalos, Llay-Llay, Valpara\u00edso",
+      "pano_id": "xNJYW4PSgzGV2TEqMpEBpA",
+      "pov": {
+        "heading": 68.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "-32.837439_-70.952135_68.85_-5.00_0",
+      "thumbnail_path": "9903bb23-294e-44a2-9ecf-180808b82d67.jpg"
+    },
+    {
+      "id": "4381807b-d04c-4c04-8b93-78a588016cb7",
+      "timestamp": "2025-08-07T12:43:16.523957",
+      "lat": 4.5400338406517715,
+      "lng": -76.1944593680759,
+      "address": "El Dovio-Versalles, Valle del Cauca",
+      "pano_id": "wgWdWsvikF8kFmi_FZVstg",
+      "pov": {
+        "heading": 333.85,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "4.540034_-76.194459_333.85_-5.00_0",
+      "thumbnail_path": "4381807b-d04c-4c04-8b93-78a588016cb7.jpg"
+    },
+    {
+      "id": "c9d4d2c0-be12-4104-9fdf-3ffd7b9b539a",
+      "timestamp": "2025-08-07T12:43:20.060957",
+      "lat": 31.65645279027197,
+      "lng": 34.9414288862752,
+      "address": "Nir Louk",
+      "pano_id": "CAoSFkNJSE0wb2dLRUlDQWdJQzZqcWJXQ2c.",
+      "pov": {
+        "heading": -248.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "31.656453_34.941429_-248.15_-5.00_0",
+      "thumbnail_path": "c9d4d2c0-be12-4104-9fdf-3ffd7b9b539a.jpg"
+    },
+    {
+      "id": "574ac51d-1de1-46b2-9f90-5b1da1d79339",
+      "timestamp": "2025-08-07T12:43:23.601528",
+      "lat": 5.90176654207688,
+      "lng": 0.9886556847260388,
+      "address": "Keta, Volta Region",
+      "pano_id": "ipwTobbIbpx2SEjFzq6kww",
+      "pov": {
+        "heading": -146.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "5.901767_0.988656_-146.15_-5.00_0",
+      "thumbnail_path": "574ac51d-1de1-46b2-9f90-5b1da1d79339.jpg"
+    },
+    {
+      "id": "87e095f0-467b-4539-978b-46eecfdf1efc",
+      "timestamp": "2025-08-07T12:43:27.067655",
+      "lat": 46.29179908449921,
+      "lng": 16.580906762551983,
+      "address": "Komarnica Ludbre\u0161ka, Vara\u017edin County",
+      "pano_id": "ha0KsxP_lG1phxES1aSmGQ",
+      "pov": {
+        "heading": 111.85000000000002,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "46.291799_16.580907_111.85_-5.00_0",
+      "thumbnail_path": "87e095f0-467b-4539-978b-46eecfdf1efc.jpg"
+    },
+    {
+      "id": "3badb1cb-5ffb-4c07-812e-ee85646a4279",
+      "timestamp": "2025-08-07T12:43:30.517183",
+      "lat": 43.891541352607554,
+      "lng": 5.774287870706945,
+      "address": "Dauphin, Provence-Alpes-C\u00f4te d'Azur",
+      "pano_id": "b9cJ5iGIYH2JHWrRmDDSFg",
+      "pov": {
+        "heading": -351.15,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "43.891541_5.774288_-351.15_-5.00_0",
+      "thumbnail_path": "3badb1cb-5ffb-4c07-812e-ee85646a4279.jpg"
+    },
+    {
+      "id": "1acb3834-1f22-4c0c-8cd3-b992e4546f88",
+      "timestamp": "2025-08-07T12:43:34.052597",
+      "lat": 20.805812868893106,
+      "lng": -89.6933791766117,
+      "address": "Hotzuc, Yucatan",
+      "pano_id": "ShCiTFG-KoqkokeXeCyG2w",
+      "pov": {
+        "heading": -236.14999999999998,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "20.805813_-89.693379_-236.15_-5.00_0",
+      "thumbnail_path": "1acb3834-1f22-4c0c-8cd3-b992e4546f88.jpg"
+    },
+    {
+      "id": "8dacb066-8fa4-4f03-87e3-34d86f5863fb",
+      "timestamp": "2025-08-07T12:43:37.674750",
+      "lat": 47.974591513902844,
+      "lng": 108.47688185828954,
+      "address": "Baganuur-Mengenmorit, Mungunmorit, T\u00f6v, Mongolia",
+      "pano_id": "V0i3_HH4f4IM9hTEg0QRqg",
+      "pov": {
+        "heading": 13.850000000000023,
+        "pitch": 5,
+        "zoom": 0.9999999999999997
+      },
+      "url_slug": "47.974592_108.476882_13.85_-5.00_0",
+      "thumbnail_path": "8dacb066-8fa4-4f03-87e3-34d86f5863fb.jpg"
+    }
+  ]
+}

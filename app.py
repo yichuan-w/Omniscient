@@ -258,6 +258,7 @@ if start_button:
     if mode == "Test Mode":
         benchmark_helper = MapGuesserBenchmark(dataset_name=dataset_choice)
         summary_by_step = {}
+        avg_distance_by_step = {}  
         progress_bar = st.progress(0)
         for mi, model_name in enumerate(selected_models):
             st.header(f"Model: {model_name}")
@@ -265,6 +266,10 @@ if start_button:
             model_class = get_model_class(config["class"])
             
             successes_per_step = [0]*steps_per_sample
+            
+            dist_sum_per_step = [0.0]*steps_per_sample
+            dist_cnt_per_step = [0]*steps_per_sample
+
             total_iterations = runs_per_model * num_samples
             model_bar = st.progress(0, text=f"Running {model_name}")
             iteration_counter = 0
@@ -280,13 +285,25 @@ if start_button:
                         for step_idx, pred in enumerate(predictions):
                             if isinstance(pred, dict) and "lat" in pred:
                                 dist = benchmark_helper.calculate_distance(true_coords, (pred["lat"], pred["lon"]))
-                                if dist is not None and dist <= SUCCESS_THRESHOLD_KM:
-                                    successes_per_step[step_idx] += 1
+                                if dist is not None:
+                                    # 新增：累计距离与计数
+                                    dist_sum_per_step[step_idx] += dist
+                                    dist_cnt_per_step[step_idx] += 1
+                                    # 原有：成功数
+                                    if dist <= SUCCESS_THRESHOLD_KM:
+                                        successes_per_step[step_idx] += 1
                         iteration_counter += 1
                         model_bar.progress(iteration_counter/total_iterations)
-            # calculate accuracy per step
+            
             acc_per_step = [s/(num_samples*runs_per_model) for s in successes_per_step]
             summary_by_step[model_name] = acc_per_step
+
+            avg_per_step = [
+                (dist_sum_per_step[i]/dist_cnt_per_step[i]) if dist_cnt_per_step[i] else None
+                for i in range(steps_per_sample)
+            ]
+            avg_distance_by_step[model_name] = avg_per_step
+
             progress_bar.progress((mi+1)/len(selected_models))
         # plot
         st.subheader("Accuracy vs Steps")
@@ -312,6 +329,26 @@ if start_button:
         )
 
         st.altair_chart(chart, use_container_width=True)
+
+        st.subheader("Average Distance vs Steps (km)")
+        df_wide_dist = pd.DataFrame(avg_distance_by_step)
+        df_long_dist = (
+            df_wide_dist
+            .reset_index(names="Step")
+            .melt(id_vars="Step", var_name="Model", value_name="AvgDistanceKm")
+        )
+        dist_chart = (
+            alt.Chart(df_long_dist)
+            .mark_line(point=True)
+            .encode(
+                x=alt.X("Step:O", title="Step #"),
+                y=alt.Y("AvgDistanceKm:Q", title="Avg Distance (km)", scale=alt.Scale(zero=True)),
+                color=alt.Color("Model:N", title="Model"),
+                tooltip=["Model:N", "Step:O", alt.Tooltip("AvgDistanceKm:Q", format=".1f")],
+            )
+            .properties(width=700, height=400)
+        )
+        st.altair_chart(dist_chart, use_container_width=True)
         st.stop()
     
     else:
