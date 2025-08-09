@@ -99,6 +99,9 @@ class MapGuesserBenchmark:
                         print(f"📍 Sample {i + 1}/{len(test_samples)}")
                         try:
                             result = self.run_single_test_with_bot(bot, sample)
+                            if result is None:
+                                print(f"❌ Sample_{i+1} test failed: No predicted coords")
+                                continue
                             all_results.append(result)
 
                             status = (
@@ -154,6 +157,8 @@ class MapGuesserBenchmark:
             }
 
         predicted_lat_lon = bot.analyze_image(screenshot)
+        if predicted_lat_lon is None:
+            return None
         inference_time = time.time() - start_time
 
         true_coords = {"lat": location_data.get("lat"), "lng": location_data.get("lng")}
@@ -163,7 +168,7 @@ class MapGuesserBenchmark:
         print(f"🔍 True coords: {true_coords}")
         print(f"🔍 Predicted coords: {predicted_lat_lon}")
         distance_km = self.calculate_distance(true_coords, predicted_lat_lon)
-
+        
         is_success = distance_km is not None and distance_km <= SUCCESS_THRESHOLD_KM
 
         return {

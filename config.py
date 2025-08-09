@@ -38,12 +38,12 @@ DEFAULT_TEMPERATURE = 1.0
 # Model configurations
 MODELS_CONFIG = {
     "gpt-4o": {
-        "class": "ChatOpenAI",
+        "class": "OpenRouter",
         "model_name": "gpt-4o",
         "description": "OpenAI GPT-4o",
     },
     "gpt-4o-mini": {
-        "class": "ChatOpenAI",
+        "class": "OpenRouter",
         "model_name": "gpt-4o-mini",
         "description": "OpenAI GPT-4o Mini",
     },
