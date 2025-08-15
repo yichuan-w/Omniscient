@@ -81,17 +81,17 @@ uv sync
 ### 🎯 **Step 3: Usage Examples**
 
 <details>
-<summary><b>🏗️ Dataset Curation</b></summary>
+<summary><b>🏗️ Data Collection (Collect Mode)</b></summary>
 
-Generate 50 urban outdoor samples:
+Generate 50 samples into a named dataset (thumbnails + labels):
 ```bash
-python main.py --mode data --samples 50 --urban --no-indoor
+python main.py --mode collect --dataset my_dataset --samples 50 --headless
 ```
 
 </details>
 
 <details>
-<summary><b>⚡ Single Image Analysis</b></summary>
+<summary><b>⚡ Single Image Analysis (Benchmark Mode)</b></summary>
 
 Benchmark GPT-4o on 5 samples:
 ```bash
@@ -101,12 +101,24 @@ python main.py --mode benchmark --models gpt-4o --samples 5
 </details>
 
 <details>
-<summary><b>🧠 Agentic Analysis</b></summary>
+<summary><b>🧠 Agentic Analysis (Agent Mode)</b></summary>
 
 Run multi-step analysis with Gemini:
 ```bash
 python main.py --mode agent --model gemini-2.5-pro --steps 10 --samples 5
 ```
+
+</details>
+
+<details>
+<summary><b>🔬 Multi-Run, Per-Step Evaluation (Test Mode)</b></summary>
+
+Run per-step evaluation across models with multiple runs and logging:
+```bash
+python main.py --mode test --models gpt-4o claude-3-7-sonnet --dataset test --steps 10 --samples 30 --runs 5
+```
+
+Outputs per-step accuracy and average distance, and saves logs under `results/test/<timestamp>/<model>/`.
 
 </details>
 
@@ -125,19 +137,26 @@ python main.py --mode agent --model gemini-2.5-pro --steps 10 --samples 5
 ### 🛠️ **Command Line Options**
 
 #### 🌟 **Common Options**
-- `--mode` → Operation mode (`data`, `benchmark`, `agent`)
-- `--samples` → Number of samples to process *(default: 10)*
+- `--mode` → Operation mode (`agent`, `benchmark`, `collect`, `test`)
+- `--dataset` → Dataset name to use or create *(default: `default`)*
+- `--samples` → Number of samples to process *(default: 50)*
+- `--headless` → Run browser in headless mode
 
-#### 🏙️ **Data Mode Options**  
-- `--urban` → Focus on urban environments
-- `--no-indoor` → Exclude indoor scenes
+#### 📊 **Benchmark Mode**
+- `--models` → One or more models, e.g. `--models gpt-4o claude-3-7-sonnet`
+- `--temperature` → LLM sampling temperature *(default: 0.0)*
 
-#### 📊 **Benchmark Mode Options**
-- `--models` → AI model to use *(e.g., `gpt-4o`, `claude-3`, `gemini-pro`)*
+#### 🤖 **Agent Mode**
+- `--model` → Single model, e.g. `--model gemini-2.5-pro`
+- `--steps` → Max reasoning steps *(default: 10)*
+- `--temperature` → LLM sampling temperature *(default: 0.0)*
 
-#### 🤖 **Agent Mode Options**
-- `--model` → AI model for agentic analysis  
-- `--steps` → Number of reasoning steps *(default: 5)*
+#### 🔬 **Test Mode**
+- `--models` → One or more models to compare
+- `--steps` → Max steps per sample *(records per-step metrics)*
+- `--runs` → Repeats per model to stabilize metrics *(default: 3)*
+- `--temperature` → LLM sampling temperature *(default: 0.0)*
+- `--id` → Run only the sample with this specific ID *(e.g., `--id 09ce31a1-a719-4ed9-a344-7987214902c1`)*
 
 ---
 
@@ -204,17 +223,12 @@ uv sync
 
 ## 💡 Examples
 
-### 🏗️ **Basic Dataset Generation**
+### 🏗️ **Basic Data Collection**
 ```bash
-python main.py --mode data --samples 20
+python main.py --mode collect --dataset my_dataset --samples 20 --headless
 ```
 
-### 🌆 **Urban Scene Analysis**  
-```bash
-python main.py --mode data --samples 30 --urban --no-indoor
-```
-
-### ⚔️ **Model Comparison**
+### ⚔️ **Model Comparison (Benchmark)**
 ```bash
 # GPT-4o Analysis
 python main.py --mode benchmark --models gpt-4o --samples 10
@@ -227,6 +241,27 @@ python main.py --mode benchmark --models claude-3-opus --samples 10
 ```bash
 python main.py --mode agent --model gemini-2.5-pro --steps 15 --samples 3
 ```
+
+### 🔬 **Per-Step Curves and Logs (Test Mode)**
+```bash
+python main.py --mode test --models gpt-4o gemini-2.5-pro --dataset test --steps 10 --samples 30 --runs 5
+```
+
+This saves JSON logs per model in `results/test/<timestamp>/<model>/` and prints per-step accuracy and average distance.
+
+**Single Sample Testing**: To test a specific sample by ID:
+```bash
+python main.py --mode test --models gpt-4o --dataset test --steps 10 --runs 3 --id 09ce31a1-a719-4ed9-a344-7987214902c1
+```
+
+---
+
+## 🧭 Modes
+
+- **Agent**: Multi-step agent that explores and then makes a final guess. Uses a simpler prompt for action selection and a final `GUESS` at the last step. Good for end-to-end agent behavior.
+- **Benchmark**: Single-image baseline (no multi-step exploration). Good for quick, pure recognition comparisons between models.
+- **Test**: Multi-model, multi-run evaluation that records a prediction at every step and logs detailed results. Produces per-step accuracy and average-distance curves; logs saved under `results/test/<timestamp>/<model>/`.
+- **Collect**: Generates datasets by sampling locations from MapCrunch and saving `datasets/<name>/golden_labels.json` plus thumbnails. Use this for data generation.
 
 ---
 

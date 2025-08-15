@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 from datetime import datetime
+from typing import Optional
 
 from geo_bot import GeoBot
 from benchmark import MapGuesserBenchmark
@@ -159,6 +160,7 @@ def test_mode(
     dataset_name: str = "default",
     temperature: float = 0.0,
     headless: bool = True,
+    sample_id: Optional[str] = None,
 ):
     """
     CLI multi-model / multi-run benchmark.
@@ -181,8 +183,16 @@ def test_mode(
         print("❌ dataset is empty.")
         return
 
-    test_samples = all_samples[:samples]
-    print(f"📊 loaded {len(test_samples)} samples from '{dataset_name}'")
+    if sample_id:
+        selected = next((s for s in all_samples if s.get("id") == sample_id), None)
+        if not selected:
+            print(f"❌ sample id '{sample_id}' not found in dataset '{dataset_name}'.")
+            return
+        test_samples = [selected]
+        print(f"📊 loaded 1 sample by id '{sample_id}' from '{dataset_name}'")
+    else:
+        test_samples = all_samples[:samples]
+        print(f"📊 loaded {len(test_samples)} samples from '{dataset_name}'")
 
     benchmark_helper = MapGuesserBenchmark(dataset_name=dataset_name, headless=headless)
     summary_by_step: dict[str, list[float]] = OrderedDict()
@@ -349,6 +359,7 @@ def main():
         help="Temperature parameter for LLM sampling (0.0 = deterministic, higher = more random). Default: 0.0",
     )
     parser.add_argument("--runs", type=int, default=3, help="[Test] Runs per model")
+    parser.add_argument("--id", dest="sample_id", type=str, help="[Test] Run only the sample with this id")
 
     args = parser.parse_args()
 
@@ -384,6 +395,7 @@ def main():
             dataset_name=args.dataset,
             temperature=args.temperature,
             headless=args.headless,
+            sample_id=args.sample_id,
         )
 
 
