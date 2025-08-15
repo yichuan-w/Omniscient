@@ -1,11 +1,15 @@
 import argparse
 import json
+import os
+from datetime import datetime
 
 from geo_bot import GeoBot
 from benchmark import MapGuesserBenchmark
 from data_collector import DataCollector
 from config import MODELS_CONFIG, get_data_paths, SUCCESS_THRESHOLD_KM, get_model_class
-
+from collections import OrderedDict
+from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 def agent_mode(
     model_name: str,
@@ -147,11 +151,165 @@ def collect_mode(dataset_name: str, samples: int, headless: bool):
     print(f"Data collection complete for dataset '{dataset_name}'.")
 
 
+def test_mode(
+    models: list,
+    samples: int,
+    runs: int,
+    steps: int,
+    dataset_name: str = "default",
+    temperature: float = 0.0,
+    headless: bool = True,
+):
+    """
+    CLI multi-model / multi-run benchmark.
+    For each model:
+        • run N times
+        • each run evaluates `samples` images
+        • record hit-rate per step and average distance
+    """
+
+    # ---------- load dataset ----------
+    data_paths = get_data_paths(dataset_name)
+    try:
+        with open(data_paths["golden_labels"], "r", encoding="utf-8") as f:
+            all_samples = json.load(f)["samples"]
+    except FileNotFoundError:
+        print(f"❌ dataset '{dataset_name}' not found.")
+        return
+
+    if not all_samples:
+        print("❌ dataset is empty.")
+        return
+
+    test_samples = all_samples[:samples]
+    print(f"📊 loaded {len(test_samples)} samples from '{dataset_name}'")
+
+    benchmark_helper = MapGuesserBenchmark(dataset_name=dataset_name, headless=headless)
+    summary_by_step: dict[str, list[float]] = OrderedDict()
+    avg_distances: dict[str, float] = {}
+
+    time_tag   = datetime.now().strftime("%Y%m%d_%H%M%S")
+    base_dir   = os.path.join("./results", "test", time_tag)
+    os.makedirs(base_dir, exist_ok=True)
+    # ---------- iterate over models ----------
+    for model_name in models:
+        log_json={}
+        print(f"\n===== {model_name} =====")
+        cfg = MODELS_CONFIG[model_name]
+        model_cls = get_model_class(cfg["class"])
+
+        hits_per_step = [0] * steps
+        distance_per_step = [0.0] * steps
+        total_iterations = runs * len(test_samples)
+
+        with tqdm(total=total_iterations, desc=model_name) as pbar:
+            for _ in range(runs):
+                with GeoBot(
+                    model=model_cls,
+                    model_name=cfg["model_name"],
+                    headless=headless,
+                    temperature=temperature,
+                ) as bot:
+                    for sample in test_samples:
+                        if not bot.controller.load_location_from_data(sample):
+                            pbar.update(1)
+                            continue
+
+                        preds = bot.test_run_agent_loop(max_steps=steps)
+                        gt = {"lat": sample["lat"], "lng": sample["lng"]}
+                        if sample["id"] not in log_json:
+                            log_json[sample["id"]] = []
+                        
+                        for idx, pred in enumerate(preds):
+                            
+                            if isinstance(pred, dict) and "lat" in pred:
+                                dist = benchmark_helper.calculate_distance(
+                                    gt, (pred["lat"], pred["lon"])
+                                )
+                                if dist is not None:
+                                    distance_per_step[idx] += dist
+                                    preds[idx]["distance"] = dist
+                                    if dist <= SUCCESS_THRESHOLD_KM:
+                                        hits_per_step[idx] += 1
+                                        preds[idx]["success"] = True
+                                    else:
+                                        preds[idx]["success"] = False
+                        log_json[sample["id"]].append({
+                            "run_id": _,
+                            "predictions": preds,
+                            })         
+                        pbar.update(1)
+        os.makedirs(f"{base_dir}/{model_name}", exist_ok=True)
+        with open(f"{base_dir}/{model_name}/{model_name}_log.json", "w") as f:
+            json.dump(log_json, f, indent=2)
+        denom = runs * len(test_samples)
+        summary_by_step[model_name] = [h / denom for h in hits_per_step]
+        avg_distances[model_name] = [d / denom for d in distance_per_step]
+        payload = {
+            "avg_distance_km":  avg_distances[model_name],
+            "accuracy_per_step": summary_by_step[model_name]
+        }
+        with open(f"{base_dir}/{model_name}/{model_name}.json", "w") as f:
+            json.dump(payload, f, indent=2)
+        print(f"💾 results saved to {base_dir}")
+
+    # ---------- pretty table ----------
+    header = ["Step"] + list(summary_by_step.keys())
+    row_width = max(len(h) for h in header) + 2
+    print("\n=== ACCURACY PER STEP ===")
+    print(" | ".join(h.center(row_width) for h in header))
+    print("-" * (row_width + 3) * len(header))
+    for i in range(steps):
+        cells = [str(i + 1).center(row_width)]
+        for m in summary_by_step:
+            cells.append(f"{summary_by_step[m][i]*100:5.1f}%".center(row_width))
+        print(" | ".join(cells))
+
+    print("\n=== AVG DISTANCE PER STEP (km) ===")
+    header = ["Step"] + list(avg_distances.keys())
+    row_w  = max(len(h) for h in header) + 2
+    print(" | ".join(h.center(row_w) for h in header))
+    print("-" * (row_w + 3) * len(header))
+
+    for i in range(steps):
+        cells = [str(i+1).center(row_w)]
+        for m in avg_distances:
+            v = avg_distances[m][i]
+            cells.append(f"{v:6.1f}" if v is not None else "  N/A ".center(row_w))
+        print(" | ".join(cells))
+
+    try:
+        for model, acc in summary_by_step.items():
+            plt.plot(range(1, steps + 1), acc, marker="o", label=model)
+        plt.xlabel("step")
+        plt.ylabel("accuracy")
+        plt.ylim(0, 1)
+        plt.legend()
+        plt.grid(True, alpha=0.3)
+        plt.title("Accuracy vs Step")
+        plt.savefig(f"{base_dir}/accuracy_step.png", dpi=120)
+        print("\n📈 saved plot to accuracy_step.png")
+        
+        # Plot average distance per model
+        plt.figure()
+        for model, acc in avg_distances.items():
+            plt.plot(range(1, steps + 1), acc, marker="o", label=model)
+        plt.xlabel("step")
+        plt.ylabel("Avg Distance (km)")
+        plt.title("Average Distance per Model")
+        plt.xticks(rotation=45, ha="right")
+        plt.tight_layout()
+        plt.savefig(f"{base_dir}/avg_distance.png", dpi=120)
+        print("📈 saved plot to avg_distance.png")
+    except Exception as e:
+        print(f"⚠️ plot skipped: {e}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="MapCrunch AI Agent & Benchmark")
     parser.add_argument(
         "--mode",
-        choices=["agent", "benchmark", "collect"],
+        choices=["agent", "benchmark", "collect", "test"],
         default="agent",
         help="Operation mode.",
     )
@@ -190,6 +348,7 @@ def main():
         default=0.0,
         help="Temperature parameter for LLM sampling (0.0 = deterministic, higher = more random). Default: 0.0",
     )
+    parser.add_argument("--runs", type=int, default=3, help="[Test] Runs per model")
 
     args = parser.parse_args()
 
@@ -215,6 +374,16 @@ def main():
             headless=args.headless,
             dataset_name=args.dataset,
             temperature=args.temperature,
+        )
+    elif args.mode == "test":
+        test_mode(
+            models=args.models or [args.model],
+            samples=args.samples,
+            runs=args.runs,
+            steps=args.steps,
+            dataset_name=args.dataset,
+            temperature=args.temperature,
+            headless=args.headless,
         )
 
 

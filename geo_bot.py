@@ -69,6 +69,72 @@ Your response MUST be a valid JSON object wrapped in ```json ... ```.
 ```
 """
 
+TEST_AGENT_PROMPT_TEMPLATE = """
+**Mission:** You are an expert geo-location agent. Your goal is to pinpoint our position based on the surroundings and your observation history.
+
+**Current Status**
+• Actions You Can Take *this* turn: {available_actions}
+
+────────────────────────────────
+**Core Principles**
+
+1.  **Observe → Orient → Act**  
+    Start each turn with a structured three-part reasoning block:  
+    **(1) Visual Clues —** plainly describe what you see (signs, text language, road lines, vegetation, building styles, vehicles, terrain, weather, etc.).  
+    **(2) Potential Regions —** list the most plausible regions/countries those clues suggest.  
+    **(3) Most Probable + Plan —** pick the single likeliest region and explain the next action (move/pan or guess).  
+
+2.  **Navigate with Labels:**  
+    - `MOVE_FORWARD` follows the green **UP** arrow.  
+    - `MOVE_BACKWARD` follows the red **DOWN** arrow.  
+    - No arrow ⇒ you cannot move that way.
+
+3.  **Efficient Exploration:**  
+    - **Pan Before You Move:** At fresh spots/intersections, use `PAN_LEFT` / `PAN_RIGHT` first.  
+    - After ~2 or 3 fruitless moves in repetitive scenery, turn around.
+
+4.  **Be Decisive:** A unique, definitive clue (full address, rare town name, etc.) ⇒ `GUESS` immediately.
+
+5.  **Final-Step Rule:** If **Remaining Steps = 1**, you **MUST** `GUESS` and you should carefully check the image and the surroundings.
+
+6.  **Always Predict:** On EVERY step, provide your current best estimate of the location, even if you're not ready to make a final guess.
+
+────────────────────────────────
+**Context & Task:**
+Analyze your full journey history and current view, apply the Core Principles, and decide your next action in the required JSON format.
+
+**Action History**
+{history_text}
+
+────────────────────────────────
+**JSON Output Format:**
+Your response MUST be a valid JSON object wrapped in ```json ... ```.
+{{
+  "reasoning": "…",
+  "current_prediction": {{
+    "lat": <float>,
+    "lon": <float>,
+    "location_description": "Brief description of predicted location"
+  }},
+  "action_details": {{"action": action chosen from the available actions}}
+}}
+**Example **  
+```json
+{{
+  "reasoning": "(1) Visual Clues — I see left-side driving, eucalyptus trees, and a yellow speed-warning sign; the road markings are solid white. (2) Potential Regions — Southeastern Australia, Tasmania, or the North Island of New Zealand. (3) Most Probable + Plan — The scene most likely sits in a suburb of Hobart, Tasmania. I will PAN_LEFT to look for additional road signs that confirm this.",
+  "current_prediction": {{
+    "lat": -42.8806,
+    "lon": 147.3250,
+    "location_description": "Hobart suburb, Tasmania, Australia"
+  }},
+  "action_details": {{
+    "action": "PAN_LEFT"
+  }}
+}}
+```
+
+"""
+
 BENCHMARK_PROMPT = """
 Analyze the image and determine its geographic coordinates.
 1.  Describe visual clues.
@@ -250,10 +316,54 @@ class GeoBot:
             decision = {
                 "reasoning": "Recovery due to parsing failure or model error.",
                 "action_details": {"action": "PAN_RIGHT"},
+                "debug_message": f"{response.content.strip()}",
             }
 
         return decision
 
+    def execute_test_agent_step(
+        self,
+        history: List[Dict[str, Any]],
+        current_screenshot_b64: str,
+        available_actions: List[str],
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Execute a single agent step: generate prompt, get AI decision, return decision.
+        This is the core step logic extracted for reuse.
+        """
+        history_text = self.generate_history_text(history)
+        image_b64_for_prompt = self.get_history_images(history) + [
+            current_screenshot_b64
+        ]
+
+        prompt = TEST_AGENT_PROMPT_TEMPLATE.format(
+            history_text=history_text,
+            available_actions=available_actions,
+        )
+
+        try:
+            message = self._create_message_with_history(
+                prompt, image_b64_for_prompt[-1:]
+            )
+            response = self.model.invoke(message)
+            decision = self._parse_agent_response(response)
+        except Exception as e:
+            print(f"Error during model invocation: {e}")
+            decision = None
+
+        if not decision:
+            print(
+                "Response parsing failed or model error. Using default recovery action: PAN_RIGHT."
+            )
+            decision = {
+                "reasoning": "Recovery due to parsing failure or model error.",
+                "action_details": {"action": "PAN_RIGHT"},
+                "current_prediction": "N/A",
+                "debug_message": f"{response.content.strip() if response is not None else 'N/A'}",
+            }
+
+        return decision
+    
     def execute_action(self, action: str) -> bool:
         """
         Execute the given action using the controller.
@@ -271,6 +381,58 @@ class GeoBot:
             self.controller.pan_view("right")
         return True
 
+    def test_run_agent_loop(self, max_steps: int = 10, step_callback=None) -> Optional[list[Tuple[float, float]]]:
+        history = self.init_history()
+        predictions = []
+        for step in range(max_steps, 0, -1):
+            # Setup and screenshot
+            self.controller.setup_clean_environment()
+            self.controller.label_arrows_on_screen()
+
+            screenshot_bytes = self.controller.take_street_view_screenshot()
+            if not screenshot_bytes:
+                print("Failed to take screenshot. Ending agent loop.")
+                return None
+
+            current_screenshot_b64 = self.pil_to_base64(
+                image=Image.open(BytesIO(screenshot_bytes))
+            )
+            available_actions = self.controller.get_test_available_actions()
+            
+
+           
+            # Normal step execution
+            decision = self.execute_test_agent_step(
+                history, current_screenshot_b64, available_actions
+            )
+
+            action_details = decision.get("action_details", {})
+            action = action_details.get("action")
+
+
+            # Add step to history AFTER callback (so next iteration has this step in history)
+            self.add_step_to_history(history, current_screenshot_b64, decision)
+
+            current_prediction = decision.get("current_prediction")
+            if current_prediction and isinstance(current_prediction, dict):
+                current_prediction["reasoning"] = decision.get("reasoning", "N/A")
+                predictions.append(current_prediction)
+            else:
+                # Fallback: create a basic prediction structure
+                print(f"Invalid current prediction: {current_prediction}")
+                fallback_prediction = {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "confidence": 0.0,
+                    "location_description": "N/A",
+                    "reasoning": decision.get("reasoning", "N/A")
+                }
+                predictions.append(fallback_prediction)
+            
+            self.execute_action(action)
+
+        return predictions
+    
     def run_agent_loop(
         self, max_steps: int = 10, step_callback=None
     ) -> Optional[Tuple[float, float]]:
@@ -347,6 +509,7 @@ class GeoBot:
                 "reasoning": decision.get("reasoning", "N/A"),
                 "action_details": decision.get("action_details", {"action": "N/A"}),
                 "history": history.copy(),  # History up to current step (excluding current)
+                "debug_message": decision.get("debug_message", "N/A"),
             }
 
             action_details = decision.get("action_details", {})
