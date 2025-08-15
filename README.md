@@ -254,6 +254,11 @@ This saves JSON logs per model in `results/test/<timestamp>/<model>/` and prints
 python main.py --mode test --models gpt-4o --dataset test --steps 10 --runs 3 --id 09ce31a1-a719-4ed9-a344-7987214902c1
 ```
 
+**Quick ID Test**: Run a specific sample by ID(like: 09ce31a1-a719-4ed9-a344-7987214902c1):
+```bash
+python main.py --mode test --models gpt-4o --dataset test --steps 10 --runs 3 --id <sample_id>
+```
+
 ---
 
 ## 🧭 Modes
