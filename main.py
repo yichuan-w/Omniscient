@@ -19,6 +19,7 @@ def agent_mode(
     samples: int,
     dataset_name: str = "default",
     temperature: float = 0.0,
+    sample_id: Optional[str] = None,
 ):
     """
     Runs the AI Agent in a benchmark loop over multiple samples,
@@ -42,9 +43,17 @@ def agent_mode(
         print(f"Error: No samples found in dataset '{dataset_name}'.")
         return
 
-    num_to_test = min(samples, len(golden_labels))
-    test_samples = golden_labels[:num_to_test]
-    print(f"Will run on {len(test_samples)} samples from dataset '{dataset_name}'.")
+    if sample_id:
+        selected = next((s for s in golden_labels if s.get("id") == sample_id), None)
+        if not selected:
+            print(f"❌ sample id '{sample_id}' not found in dataset '{dataset_name}'.")
+            return
+        test_samples = [selected]
+        print(f"📊 loaded 1 sample by id '{sample_id}' from '{dataset_name}'")
+    else:
+        num_to_test = min(samples, len(golden_labels))
+        test_samples = golden_labels[:num_to_test]
+        print(f"Will run on {len(test_samples)} samples from dataset '{dataset_name}'.")
 
     config = MODELS_CONFIG.get(model_name)
     model_class = get_model_class(config["class"])
@@ -377,6 +386,7 @@ def main():
             samples=args.samples,
             dataset_name=args.dataset,
             temperature=args.temperature,
+            sample_id=args.sample_id,
         )
     elif args.mode == "benchmark":
         benchmark_mode(

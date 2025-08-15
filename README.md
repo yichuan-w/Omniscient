@@ -150,6 +150,7 @@ Outputs per-step accuracy and average distance, and saves logs under `results/te
 - `--model` → Single model, e.g. `--model gemini-2.5-pro`
 - `--steps` → Max reasoning steps *(default: 10)*
 - `--temperature` → LLM sampling temperature *(default: 0.0)*
+- `--id` → Run only the sample with this specific ID *(e.g., `--id 09ce31a1-a719-4ed9-a344-7987214902c1`)*
 
 #### 🔬 **Test Mode**
 - `--models` → One or more models to compare
@@ -240,6 +241,11 @@ python main.py --mode benchmark --models claude-3-opus --samples 10
 ### 🧠 **Advanced Agentic Workflow**
 ```bash
 python main.py --mode agent --model gemini-2.5-pro --steps 15 --samples 3
+```
+
+**Agent Mode with Specific ID**: Run agent on a specific sample:
+```bash
+python main.py --mode agent --model gemini-2.5-pro --steps 15 --id 09ce31a1-a719-4ed9-a344-7987214902c1
 ```
 
 ### 🔬 **Per-Step Curves and Logs (Test Mode)**
